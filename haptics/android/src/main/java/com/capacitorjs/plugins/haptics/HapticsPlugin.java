@@ -20,7 +20,8 @@ public class HapticsPlugin extends Plugin {
     @PluginMethod
     public void vibrate(PluginCall call) {
         int duration = call.getInt("duration", 300);
-        implementation.vibrate(duration);
+        String effect = call.getString("effect");
+        implementation.vibrate(duration, effect);
         call.resolve();
     }
 

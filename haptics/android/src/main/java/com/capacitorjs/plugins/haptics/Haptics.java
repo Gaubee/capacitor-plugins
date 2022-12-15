@@ -29,9 +29,19 @@ public class Haptics {
         return (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void vibrate(int duration) {
+    public void vibrate(int duration, String effect) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE));
+            var vibration_effect = VibrationEffect.DEFAULT_AMPLITUDE;
+            if (effect == "Click") {
+                vibration_effect = VibrationEffect.EFFECT_CLICK;
+            } else if (effect == "DoubleClick") {
+                vibration_effect = VibrationEffect.EFFECT_DOUBLE_CLICK;
+            } else if (effect == "HeavyClick") {
+                vibration_effect = VibrationEffect.EFFECT_HEAVY_CLICK;
+            } else if (effect == "Tick") {
+                vibration_effect = VibrationEffect.EFFECT_TICK;
+            }
+            vibrator.vibrate(VibrationEffect.createOneShot(duration, vibration_effect));
         } else {
             vibratePre26(duration);
         }
